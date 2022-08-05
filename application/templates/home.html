@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Rent Data</h1>
+    <h3>From {{ statistics_rent["start_date"] }} to {{ statistics_rent["end_date"] }}</h3>
+    {% if statistics_rent["available"] > 0 %}
+        <p>The number of available flats increased by {{ statistics_rent["available"] }}%.</p>
+    {% else %}
+        <p>The number of available flats decreased by {{ statistics_rent["available"] * - 1 }}%.</p>
+    {% endif %}
+    {% if statistics_rent["price_change"] > 0 %}
+        <p>The price of flats increased by {{ statistics_rent["price_change"] }}%.</p>
+    {% else %}
+        <p>The price of flats decreased by {{ statistics_rent["price_change"] * - 1 }}%.</p>
+    {% endif %}
+    <div id="chart-rent"></div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        let graph_rent = {{chart_rent | safe}}
+        Plotly.plot("chart-rent", graph_rent,{});
+    </script>
+{% endblock %}
