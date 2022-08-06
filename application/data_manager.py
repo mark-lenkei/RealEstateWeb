@@ -12,13 +12,15 @@ class DataManager:
 
     def __init__(self, path):
         self.csv_path = glob.glob(path)
-        self.df_read = []
+        self.__df_read = []
         for i in self.csv_path:
-            self.df_read.append(pd.read_csv(i))
-        self.df = pd.concat([i for i in self.df_read])
+            self.__df_read.append(pd.read_csv(i))
+        self.df = pd.concat([i for i in self.__df_read])
 
 
     def get_statistics(self, start_date="2022-07-26", end_date=datetime.today().strftime('%Y-%m-%d')):
+        start_date = start_date.strftime("%Y-%m-%d")
+        end_date = end_date.strftime("%Y-%m-%d")
         if start_date > end_date:
             start_date, end_date = end_date, start_date
 

@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Rent Data</h1>
+    <h2>Set date interval</h2>
+    <form method="POST">
+        {% if form.errors %}
+        {{ form.errors }}
+        {% endif %}
+        {{ form.csrf_token }}
+        {{ form.start_date.label() }}: {{ form.start_date() }}
+        {{ form.end_date.label() }}: {{ form.end_date() }}
+
+        {{ form.submit() }}
+    </form>
+    <h2>Rent Data</h1>
     <h3>From {{ statistics_rent["start_date"] }} to {{ statistics_rent["end_date"] }}</h3>
     {% if statistics_rent["available"] > 0 %}
         <p>The number of available flats increased by {{ statistics_rent["available"] }}%.</p>
